@@ -1,0 +1,26 @@
+block('menu-logo')(
+    tag()('ul'),
+    content()(
+            function () {
+                // Пункты меню из свойства 'items' блока
+                var items = this.ctx.items;
+                var content = [];
+
+                items.forEach(function(item){
+                    content.push(
+                        {
+                            elem: 'item', // элемент меню
+                            tag: 'li',
+                            content: {
+                                block: 'link',
+                                mods : { brand : item.brand },
+                                url: item.url,
+                                content: '',
+                                target : '_blank'
+                            }
+                        });
+                });
+                return content;
+            }
+    )
+)
