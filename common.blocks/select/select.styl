@@ -1,0 +1,30 @@
+.select{
+    &__button{
+        position: relative;
+        border: none;
+        outline: none;
+        background: color_bg;
+        width: 615px;
+        height: 40px;
+        color: color_font;
+        font-size: 16px;
+        padding: 11px 22px;
+        box-sizing: border-box;
+        margin-top: 10px;
+        text-align: left;
+    }
+    &__button .button__text{
+        text-transform: uppercase;
+    }
+    &__tick{
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid #a2a2a2;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+    }
+}

@@ -2,9 +2,10 @@ module.exports = {
     block : 'page',
     title : 'stock',
     head : [
-        { elem : 'meta', attrs : { name : 'viewport', content : 'width=device-width, initial-scale=1' } },
+
         { elem : 'css', url : 'index.min.css' }
     ],
+
     scripts: [{ elem : 'js', url : 'index.min.js' }],
     content : [
         {
@@ -18,13 +19,12 @@ module.exports = {
                             elem: 'content',
                             content : [
                                 {
-                                    block : 'stock-header',
                                     elem: 'title',
                                     content : [
                                         'ЦЕНЫ И НАЛИЧИЕ ЗАПАСНЫХ ЧАСТЕЙ'
                                     ]
                                 },
-                                { block : 'stock-header', elem: 'hr' },
+                                {elem: 'hr' },
                                 {
                                     block : 'menu-logo',
                                     mix: [ { block: 'stock-header', elem: 'menu-logo' } ],
@@ -48,6 +48,44 @@ module.exports = {
                                     ]
                                 }
                             ]
+                        }
+                    ]
+                },
+                {
+                    block : 'stock-content',
+                    content : [
+                        {
+                            elem: 'title',
+                            content : [
+                                'ПОИСК НАИМЕНОВАНИЯ'
+                            ]
+                        },
+                        {
+                            block : 'select',
+                            mods : { mode : 'radio', theme : 'stock'},
+                            name : 'region',
+                            val : 1,
+                            options : [
+                                { val : 1, text : 'Город 1' },
+                                { val : 2, text : 'Город 2' },
+                                { val : 3, text : 'Город 3' }
+                            ]
+                        },
+                        {
+                            block : 'input',
+                            mix: [ { block: 'stock-input'}],
+                            val : 'НАИМЕНОВАНИЕ'
+                        },
+                        {
+                            block : 'input',
+                            mix: [ { block: 'stock-input'}],
+                            val : 'КОД ТОВАРА'
+                        },
+                        {
+                            block : 'button',
+                            mix: [ { block: 'stock-button'}, { block: 'stock-content', elem: 'button' } ],
+                            mods : { type : 'link' },
+                            text : 'ПОИСК'
                         }
                     ]
                 }
