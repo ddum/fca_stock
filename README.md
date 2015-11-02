@@ -1,3 +1,5 @@
+npm install - установка пакетов
+
 export PATH=./node_modules/.bin:$PATH
 
 сборка    - enb make
