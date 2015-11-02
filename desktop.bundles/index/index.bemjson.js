@@ -73,13 +73,11 @@ module.exports = {
                         },
                         {
                             block : 'input',
-                            mix: [ { block: 'stock-input'}],
-                            val : 'НАИМЕНОВАНИЕ'
+                            mix: [ { block: 'stock-input', js: {val : 'НАИМЕНОВАНИЕ'} }],
                         },
                         {
                             block : 'input',
-                            mix: [ { block: 'stock-input'}],
-                            val : 'КОД ТОВАРА'
+                            mix: [ { block: 'stock-input', js: {val : 'КОД ТОВАРА'} }],
                         },
                         {
                             block : 'button',
