@@ -74,13 +74,12 @@ module.exports = {
                         },
                         {
                             block : 'select',
+                            mix: [ { block: 'stock-select', js: true, mods : {type: 'region'} }],
                             mods : { mode : 'radio', theme : 'stock'},
                             name : 'region',
-                            val : 1,
+                            val : 'none',
                             options : [
-                                { val : 1, text : 'Город 1' },
-                                { val : 2, text : 'Город 2' },
-                                { val : 3, text : 'Город 3' }
+                                { val : 'none', text : 'Выберите город' },
                             ]
                         },
                         {
