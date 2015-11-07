@@ -1,16 +1,13 @@
 modules.define('stock-select', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provide, BEMHTML, BEMDOM, $) {
-
-    provide(BEMDOM.decl(this.name, {
+    provide(BEMDOM.decl({ block : 'stock-select', modName : 'type', modVal : 'region' }, {
         onSetMod: {
             'js': {
                 'inited': function() {
-                    if(this.hasMod('type', 'region')){
-                        this._select = this.findBlockInside('select');
-                        this._popup = this.findBlockInside('popup');
-                        this._menu = this._popup.findBlockInside('menu');
-                        this._menuItem = this._menu.findBlockInside('menu-item');
-                        this.getCityObject();
-                    }
+                    this._select = this.findBlockInside('select');
+                    this._popup = this.findBlockInside('popup');
+                    this._menu = this._popup.findBlockInside('menu');
+                    this._menuItem = this._menu.findBlockInside('menu-item');
+                    this.getCityObject();
                 }
             }
         },
@@ -43,6 +40,14 @@ modules.define('stock-select', ['BEMHTML', 'i-bem__dom', 'jquery'], function(pro
                     })
                );
            });
+       },
+       _getVal: function () {
+           var value = this._select.getVal();
+           if(value == 'none'){
+               return false;
+           }else{
+               return value;
+           }
        }
     }
 ));

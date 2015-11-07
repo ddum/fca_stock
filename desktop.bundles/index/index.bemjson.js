@@ -84,17 +84,35 @@ module.exports = {
                         },
                         {
                             block : 'input',
-                            mix: [ { block: 'stock-input', js: {val : 'НАИМЕНОВАНИЕ'} }],
+                            mix: [ {
+                                 block: 'stock-input',
+                                 js: {val : 'НАИМЕНОВАНИЕ'},
+                                 mods : {type: 'nameSP'}
+                             }],
                         },
                         {
                             block : 'input',
-                            mix: [ { block: 'stock-input', js: {val : 'КОД ТОВАРА'} }],
+                            mix: [ {
+                                block: 'stock-input',
+                                js: {val : 'КОД ТОВАРА'},
+                                mods : {type: 'codeSP'}
+                            }],
                         },
                         {
                             block : 'button',
-                            mix: [ { block: 'stock-button'}, { block: 'stock-content', elem: 'button' } ],
+                            mix: [ { block: 'stock-button', js: true, mods : {type: 'search'} }, { block: 'stock-content', elem: 'button' } ],
                             mods : { type : 'link' },
                             text : 'ПОИСК'
+                        },
+                        {
+                            block: 'map',
+                            mods: { 'api': 'gmaps' },
+                            // Параметры для загрузки АПИ Google Maps
+                            js: {
+                                'lang': 'ru',
+                                'center': [55.76, 37.64],
+                                'zoom': 10
+                            }
                         }
                     ]
                 }

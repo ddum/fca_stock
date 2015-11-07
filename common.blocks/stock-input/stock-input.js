@@ -4,7 +4,7 @@ modules.define('stock-input', ['i-bem__dom'], function(provide, BEMDOM) {
         onSetMod: {
             'js': {
                 'inited': function() {
-                    this._input = this.findBlockInside('input');
+                    this._input = this.findBlockOn('input');
                     this._setVal(this.params.val);
 
                     this.bindTo('focusin',  this._onInFocus);
@@ -14,6 +14,14 @@ modules.define('stock-input', ['i-bem__dom'], function(provide, BEMDOM) {
         },
         _setVal: function(txt){
             this._input.setVal(txt, this);
+        },
+        _getVal: function(){
+            var value = this._input.getVal();
+            if(value == this.params.val){
+                return false;
+            }else{
+                return value;
+            }
         },
         _onInFocus: function() {
             if(this._input.getVal() == this.params.val){
