@@ -2,11 +2,23 @@ module.exports = {
     block : 'page',
     title : 'stock',
     head : [
-
-        { elem : 'css', url : 'index.min.css' }
+        {
+            content : { elem : 'css', url : 'index.min.css' }
+        },
+        {
+            elem : 'conditional-comment',
+            condition : '<= IE 9',
+            content : { elem : 'css', url : 'index.ie.css' } // стили для IE9 и ниже
+        }
     ],
-
-    scripts: [{ elem : 'js', url : 'index.min.js' }],
+    scripts : [
+        {
+            elem : 'conditional-comment',
+            condition : '< IE 9',
+            content : { elem : 'js', url : '//yastatic.net/es5-shims/0.0.1/es5-shims.min.js' }, // Подключение es5-shim для IE8 и ниже
+        },
+        { elem : 'js', url : 'index.min.js' }
+    ],
     content : [
         {
             block : 'stock-wrap',

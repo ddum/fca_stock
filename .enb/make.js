@@ -51,6 +51,7 @@ module.exports = function(config) {
                     browsers: ['ie >= 10', 'last 2 versions', 'opera 12.1', '> 2%']
                 }
             }],
+            [techs.stylus, { target : '?.ie.css', sourceSuffixes : ['ie.styl', 'ie.css'] }],
 
             // bemtree
             // [techs.bemtree, { devMode: process.env.BEMTREE_ENV === 'development' }],
@@ -92,9 +93,10 @@ module.exports = function(config) {
 
             // borschik
             [techs.borschik, { sourceTarget: '?.js', destTarget: '?.min.js', freeze: true, minify: isProd }],
-            [techs.borschik, { sourceTarget: '?.css', destTarget: '?.min.css', tech: 'cleancss', freeze: true, minify: isProd }]
+            [techs.borschik, { sourceTarget: '?.css', destTarget: '?.min.css', tech: 'cleancss', freeze: true, minify: isProd }],
+            //[techs.borschik, { sourceTarget: '?.ie.css', destTarget: '?.min.ie.css', tech: 'cleancss', freeze: true, minify: isProd }]
         ]);
 
-        nodeConfig.addTargets([/* '?.bemtree.js', */ '?.html', '?.min.css', '?.min.js']);
+        nodeConfig.addTargets([/* '?.bemtree.js', */ '?.html', '?.min.css', '?.ie.css', '?.min.js']);
     });
 };

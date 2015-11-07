@@ -1,5 +1,8 @@
 npm install - установка пакетов
 
+заменить файл
+/libs/bem-core/common.blocks/jquery/__event/_type/jquery__event_type_pointernative.js на /update/jquery__event_type_pointernative.js
+
 export PATH=./node_modules/.bin:$PATH
 
 сборка    - enb make
