@@ -17,9 +17,17 @@ modules.define('stock-button', ['i-bem__dom', 'jquery'], function(provide, BEMDO
         },
         _onClick: function (e) {
             e.preventDefault();
-            console.log(this._inputNameSparePart._getVal());
-            console.log(this._inputCodeSparePart._getVal());
-            console.log(this._selectCity._getVal());
+            if(!this.hasMod('loaded')){
+                this.setMod('loaded');
+                // console.log(this._inputNameSparePart._getVal());
+                // console.log(this._inputCodeSparePart._getVal());
+                // console.log(this._selectCity._getVal());
+                this.emit('buttonSearchClick', {
+                    'nameSparePart' : this._inputNameSparePart._getVal() || "",
+                    'codeSparePart' : this._inputCodeSparePart._getVal() || "",
+                    'idCity'        : this._selectCity._getVal() || ""
+                });
+            }
         }
     }
 ));

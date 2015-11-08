@@ -4,8 +4,31 @@ modules.define('map', ['i-bem__dom', 'loader_type_js', 'jquery'], function(provi
             'js': {
                 inited: function () {
                     this.loadMapsApi();
+
+                    this._buttonSearch = this.findBlockOutside('stock-content').findBlockInside({ block : 'stock-button', modName : 'type', modVal : 'search' });
+
+                    // Слушаем клик конпки поиск.
+                    this._buttonSearch.on('buttonSearchClick', this.onButtonSearchClick, this);
                 }
             }
+        },
+
+        onButtonSearchClick: function (e, data) {
+            this.setMod('loaded');
+            this.loadGeoObj(data);
+        },
+
+        loadGeoObj: function (data) {
+            $.ajax({
+                url: '../../files/stock.json',
+                data: $.param(data),
+                dataType: 'json',
+                success: this.setMarkerMap,
+                error: function (request, status, error) {
+                    console.log(request.responseText);
+                },
+                context: this
+           });
         },
 
         /**
@@ -81,6 +104,12 @@ modules.define('map', ['i-bem__dom', 'loader_type_js', 'jquery'], function(provi
             this.emit('map-inited', {
                 map: this._map
             });
+        },
+
+        setMarkerMap:function (data) {
+            console.log(data);
+            
+            this._buttonSearch.delMod('loaded');
         },
 
         /**
