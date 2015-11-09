@@ -1,0 +1,57 @@
+block('stock-table')(
+    tag()('table'),
+    content()(
+        function () {
+            var content = [];
+            var th = this.ctx.th;
+
+            var table_row = {
+                elem: 'tr',
+                tag: 'tr',
+                content: []
+            };
+
+            th.forEach(function(item){
+                table_row.content.push({
+                    elem: 'th',
+                    tag: 'td',
+                    attrs: { 'width': item.width },
+                    content: item.text
+                });
+            });
+            content.push(table_row);
+
+            var tableRows = this.ctx.rows;
+            tableRows.forEach(function(row){
+                var table_row = {
+                    elem: 'tr',
+                    tag: 'tr',
+                    content: []
+                };
+                row.forEach(function(item){
+                    table_row.content.push({
+                        elem: 'td',
+                        tag: 'td',
+                        content: item
+                    });
+                });
+                content.push(table_row);
+            });
+
+            return content;
+        }
+    )
+);
+
+/*,
+{
+    block: 'stock-table',
+    th: [
+            {'width':"25%", 'text': 'КОД ТОВАРА'},
+            {'width':"75%", 'text': 'НАИМЕНОВАНИЕ'}
+        ],
+    rows:[
+        ['asdasdas', 'sdfsdfsd'],
+        ['2222222222', '4444444444']
+    ]
+}*/
