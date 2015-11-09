@@ -24,12 +24,11 @@ modules.define('stock-select', ['BEMHTML', 'i-bem__dom', 'jquery'], function(pro
            });
        },
        setValSelect: function (data) {
-           if (data.result === undefined){
-               console.log('error');
+           if (data.city === undefined){
                return;
            }
            _this = this;
-           $.each( data.result, function( i, value ) {
+           $.each( data.city, function( i, value ) {
                BEMDOM.append(
                    _this._menu.domElem,
                    BEMHTML.apply({
@@ -40,6 +39,7 @@ modules.define('stock-select', ['BEMHTML', 'i-bem__dom', 'jquery'], function(pro
                     })
                );
            });
+           if(typeof data.city != "undefined") this.dealersList = data.dealers;
        },
        _getVal: function () {
            var value = this._select.getVal();
@@ -48,6 +48,9 @@ modules.define('stock-select', ['BEMHTML', 'i-bem__dom', 'jquery'], function(pro
            }else{
                return value;
            }
+       },
+       getDealersList: function () {
+           return this.dealersList;
        }
     }
 ));

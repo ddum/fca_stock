@@ -1,47 +1,7 @@
 {
-    "result":[
-        {
-          "id": "1028",
-          "dealer_adress_ru": "м. Мякинино, 65-66 км МКАД, Crocus CITY",
-          "dealer_adress_en": "Myakinino, 65-66 km Moscow Ring Road, Crocus CITY",
-          "dealer_email": false,
-          "dealer_fax": false,
-          "dealer_latitude": "55.8267",
-          "dealer_legal_name": "Jeep Territory",
-          "dealer_longitude": "37.3814",
-          "dealer_name_en": "Jeep Territory",
-          "dealer_name_ru": "Jeep Territory",
-          "dealer_phone": ["8-800-100-81-82", "8-800-100-81-85"],
-          "dealer_region": "6",
-          "dealer_region_county": "11",
-          "dealer_region_county_name_en": "Moscow -NWAD",
-          "dealer_region_county_name_ru": "Москва – СЗАО",
-          "dealer_region_name_en": "Moscow",
-          "dealer_region_name_ru": "Москва",
-          "dealer_sc_phone": false,
-          "dealer_site_url": ["www.jeep-russia.ru/ru/jeep_territory/"]
-        },
-        {
-          "id": "740",
-          "dealer_adress_ru": "г. Москва, ул. Красная сосна,д.5,стр.1",
-          "dealer_adress_en": "Moscow, Krasnaya sosna, 5 ",
-          "dealer_email": ["info@avalux.ru"],
-          "dealer_fax": false,
-          "dealer_latitude": "55.8494",
-          "dealer_legal_name": "ООО &quot;АВАЛЮКС Центр&quot;",
-          "dealer_longitude": "37.6848",
-          "dealer_name_en": "Avalux",
-          "dealer_name_ru": "АВАЛЮКС",
-          "dealer_phone": ["+7 (495) 601-90-90"],
-          "dealer_pindex": "129337",
-          "dealer_region": "6",
-          "dealer_region_county": "10",
-          "dealer_region_county_name_en": "Moscow - NEAD",
-          "dealer_region_county_name_ru": "Москва – СВАО",
-          "dealer_region_name_en": "Moscow",
-          "dealer_region_name_ru": "Москва",
-          "dealer_sc_phone": false,
-          "dealer_site_url": ["www.jeep-russia.ru/ru/jeep_territory/"]
-        }
-    ]
+    "stockinfo":{
+        "code": "#1231242412",
+        "description": "Супер запчасть Супер запчасть Супер запчасть Супер запчасть Супер запчасть Супер запчасть Супер запчасть "
+    },
+    "dealers":["1028"]
 }

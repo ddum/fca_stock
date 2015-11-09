@@ -7,8 +7,10 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
                     this._lang = this.params.lang;
                     this.loadMapsApi();
 
+                    this.wrap = this.findBlockOutside('stock-content');
+
                     // Слушаем клик конпки поиск.
-                    this._buttonSearch = this.findBlockOutside('stock-content').findBlockInside({ block : 'stock-button', modName : 'type', modVal : 'search' });
+                    this._buttonSearch = this.wrap.findBlockInside({ block : 'stock-button', modName : 'type', modVal : 'search' });
                     this._buttonSearch.on('buttonSearchClick', this.onButtonSearchClick, this);
                 }
             }
@@ -20,17 +22,21 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
         },
 
         loadGeoObj: function (data) {
-            if(JSON.stringify( this.prevFilter ) == JSON.stringify( data )){
+            if(JSON.stringify( this.prevFilter ) == JSON.stringify( data.filter )){
                 this._buttonSearch.delMod('loaded');
                 return;
             }else{
-                this.prevFilter = data;
+                this.prevFilter = data.filter;
             }
+            this.dealersList = data.dealersList;
             $.ajax({
                 url: '../../files/stock.json',
-                data: $.param(data),
+                data: $.param(data.filter),
                 dataType: 'json',
-                success: this.setMarkerMap,
+                success: function (data) {
+                    //this.showStockInfo(data.stockinfo);
+                    this.showMarkerMap(data.dealers);
+                },
                 error: function (request, status, error) {
                     console.log(request.responseText);
                 },
@@ -116,46 +122,61 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
             });
         },
 
-        setMarkerMap:function (data) {
+        showMarkerMap:function (pointDealers) {
             var _this = this;
 
-            $.each(data.result, function(i, val) {
-               var marker = new google.maps.Marker({
-                   position: new google.maps.LatLng(val.dealer_latitude, val.dealer_longitude),
-                   map: _this._map,
-                   title: val['dealer_name_' + _this._lang]
-               });
+            //this.dealersList
 
-               //элементы из json, которые попадают в InfoWindow
-               var fieldsInfoWindow = [ 'dealer_adress_' + _this._lang,
-                                        'dealer_email',
-                                        'dealer_phone'
-                                    ];
-               var contentInfoWindow = $.map( fieldsInfoWindow, function( field, i ) {
-                   if(val[field] === false || typeof val[field] == "undefined" ){
-                       return null;
-                   }else{
-                       return { type: field.replace(/dealer_|_ru|_en/g,""), text: val[field] };
-                   }
-               });
+            $.each(this.dealersList, function(i, dealer) {
 
-               marker.info = new google.maps.InfoWindow({
-                   content: BEMHTML.apply({
-                                block : 'map-infowindow',
-                                js: {dealer_id : val.id},
-                                title: val['dealer_name_' + _this._lang],
-                                items: contentInfoWindow
-                            })
-               });
+                if(typeof _this._markers[dealer.id] == "undefined"){
+                    //маркер нужно поставить, но он еще не создан
+                    if($.inArray( dealer.id , pointDealers ) != -1){
+                        var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(dealer.dealer_latitude, dealer.dealer_longitude),
+                            map: _this._map,
+                            title: dealer['dealer_name_' + _this._lang]
+                        });
 
-                google.maps.event.addListener(marker, 'click', function() {
-                    _this.closeActivInfoWin();
-                    marker.info.open( _this._map, marker);
-                    _this.activMarker = marker;
-                });
+                        //элементы из json, которые попадают в InfoWindow
+                        var fieldsInfoWindow = [ 'dealer_adress_' + _this._lang,
+                                                'dealer_email',
+                                                'dealer_phone'
+                                                ];
+                        var contentInfoWindow = $.map( fieldsInfoWindow, function( field, i ) {
+                            if(dealer[field] === false || typeof dealer[field] == "undefined" ){
+                               return null;
+                            }else{
+                               return { type: field.replace(/dealer_|_ru|_en/g,""), text: dealer[field] };
+                            }
+                        });
 
+                        marker.info = new google.maps.InfoWindow({
+                           content: BEMHTML.apply({
+                                        block : 'map-infowindow',
+                                        js: {dealer_id : dealer.id},
+                                        title: dealer['dealer_name_' + _this._lang],
+                                        items: contentInfoWindow
+                                    })
+                        });
 
-               _this._markers.push(marker);
+                        google.maps.event.addListener(marker, 'click', function() {
+                            _this.closeActivInfoWin();
+                            marker.info.open( _this._map, marker);
+                            _this.activMarker = marker;
+                        });
+                        _this._markers[dealer.id] = marker;
+                    }
+                }else{
+                    var tmpMarker = _this._markers[dealer.id];
+                    if($.inArray( dealer.id , pointDealers ) == -1){
+                        //Убрать с карты ранее созданный маркер
+                        tmpMarker.setMap(null);
+                    }else{
+                        //Поставить на карту ранее созданный маркер
+                        tmpMarker.setMap(_this._map);
+                    }
+                }
             });
 
             this._buttonSearch.delMod('loaded');
