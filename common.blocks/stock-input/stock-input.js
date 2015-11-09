@@ -29,7 +29,7 @@ modules.define('stock-input', ['i-bem__dom'], function(provide, BEMDOM) {
             }
         },
         _onOutFocus: function() {
-            if(this._input.getVal() == ''){
+            if(this._input.getVal() === ''){
                 this._setVal(this.params.val);
             }
         }

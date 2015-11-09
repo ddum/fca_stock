@@ -1,0 +1,36 @@
+block('map-infowindow')(
+    content()(
+        function () {
+            var content = [];
+            content.push({
+                    elem: 'title',
+                    content: this.ctx.title
+                });
+
+            var items = this.ctx.items;
+
+            items.forEach(function(item){
+                if(Array.isArray(item.text)){
+                    item.text.forEach(function(txt){
+                        content.push(
+                            {
+                                elem: item.type,
+                                mix: { elem: 'item' },
+                                content: txt
+                            }
+                        );
+                    });
+                }else{
+                    content.push(
+                        {
+                            elem: item.type,
+                            mix: { elem: 'item' },
+                            content: item.text
+                        }
+                    );
+                }
+            });
+            return content;
+        }
+    )
+);

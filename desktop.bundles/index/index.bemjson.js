@@ -111,7 +111,8 @@ module.exports = {
                             js: {
                                 'lang': 'ru',
                                 'center': [55.76, 37.64],
-                                'zoom': 10
+                                'zoom': 10,
+                                'styles': true
                             }
                         }
                     ]
