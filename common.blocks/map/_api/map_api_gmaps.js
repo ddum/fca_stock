@@ -34,8 +34,9 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
                 data: $.param(data.filter),
                 dataType: 'json',
                 success: function (data) {
-                    //this.showStockInfo(data.stockinfo);
                     this.showMarkerMap(data.dealers);
+                    //карта отрисована
+                    this.delMod('loaded').emit('map-show', data );
                 },
                 error: function (request, status, error) {
                     console.log(request.responseText);
@@ -125,8 +126,6 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
         showMarkerMap:function (pointDealers) {
             var _this = this;
 
-            //this.dealersList
-
             $.each(this.dealersList, function(i, dealer) {
 
                 if(typeof _this._markers[dealer.id] == "undefined"){
@@ -135,11 +134,17 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
                         var marker = new google.maps.Marker({
                             position: new google.maps.LatLng(dealer.dealer_latitude, dealer.dealer_longitude),
                             map: _this._map,
-                            title: dealer['dealer_name_' + _this._lang]
+                            title: dealer['dealer_name_' + _this._lang],
+                            dealer_city: dealer['dealer_region_name_' + _this._lang],
+                            dealer_adress: dealer['dealer_adress_' + _this._lang],
+                            dealer_email: dealer.dealer_email,
+                            dealer_phone: dealer.dealer_phone
                         });
 
                         //элементы из json, которые попадают в InfoWindow
-                        var fieldsInfoWindow = [ 'dealer_adress_' + _this._lang,
+                        var fieldsInfoWindow = [
+                                                'dealer_region_name_' + _this._lang,
+                                                'dealer_adress_' + _this._lang,
                                                 'dealer_email',
                                                 'dealer_phone'
                                                 ];
@@ -178,11 +183,12 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
                     }
                 }
             });
-
-            this._buttonSearch.delMod('loaded');
         },
         closeActivInfoWin: function() {
             if(this.activMarker) this.activMarker.info.close();
+        },
+        getMarkers: function (id) {
+            return this._markers[id] || false;
         },
         /**
          * @return {Map | Null} Экземпляр карты, либо null, если карта не инстанцирована.

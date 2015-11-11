@@ -19,9 +19,6 @@ modules.define('stock-button', ['i-bem__dom', 'jquery'], function(provide, BEMDO
             e.preventDefault();
             if(!this.hasMod('loaded')){
                 this.setMod('loaded');
-                // console.log(this._inputNameSparePart._getVal());
-                // console.log(this._inputCodeSparePart._getVal());
-                // console.log(this._selectCity._getVal());
                 this.emit('buttonSearchClick',
                             {
                                 'filter':{

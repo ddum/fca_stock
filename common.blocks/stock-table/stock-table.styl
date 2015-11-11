@@ -1,10 +1,21 @@
 .stock-table{
     width: 100%;
-    margin: 10px 0 30px 0;
-    color: color_font;
-    font-weight: 100;
-    border-collapse: collapse;
 
+    &__title{
+        text-align: left;
+        color: #577add;
+        margin-bottom: 30px;
+    }
+    &__table{
+        width: 100%;
+        margin: 10px 0 30px 0;
+        color: color_font;
+        font-weight: 100;
+        border-collapse: collapse;
+    }
+    &__phone , &__email{
+        line-height: 1.5;
+    }
     &__th{
         height: 40px;
         background: #d1d1d1;
@@ -17,7 +28,7 @@
 
     &__td{
         text-align: left;
-        padding: 6px 10px 6px 22px;
+        padding: 6px 10px;
         border: 1px solid #EFEFEF;
         font-size: 14px;
     }

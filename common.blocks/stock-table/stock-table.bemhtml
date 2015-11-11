@@ -1,8 +1,7 @@
 block('stock-table')(
-    tag()('table'),
     content()(
         function () {
-            var content = [];
+            var contentTable = [];
             var th = this.ctx.th;
 
             var table_row = {
@@ -19,7 +18,7 @@ block('stock-table')(
                     content: item.text
                 });
             });
-            content.push(table_row);
+            contentTable.push(table_row);
 
             var tableRows = this.ctx.rows;
             tableRows.forEach(function(row){
@@ -28,30 +27,28 @@ block('stock-table')(
                     tag: 'tr',
                     content: []
                 };
-                row.forEach(function(item){
+                for (var key in row){
                     table_row.content.push({
                         elem: 'td',
+                        mix: {elem: key},
                         tag: 'td',
-                        content: item
+                        content: row[key]
                     });
-                });
-                content.push(table_row);
-            });
+                }
+                contentTable.push(table_row);
 
-            return content;
+            });
+            var elemTitle = (typeof this.ctx.title !== 'undefined')? { elem : 'title', content : this.ctx.title } : '';
+            
+            return [
+                elemTitle ,
+                {
+                    elem: 'table',
+                    tag: 'table',
+                    content: contentTable
+                }
+
+            ];
         }
     )
 );
-
-/*,
-{
-    block: 'stock-table',
-    th: [
-            {'width':"25%", 'text': 'КОД ТОВАРА'},
-            {'width':"75%", 'text': 'НАИМЕНОВАНИЕ'}
-        ],
-    rows:[
-        ['asdasdas', 'sdfsdfsd'],
-        ['2222222222', '4444444444']
-    ]
-}*/

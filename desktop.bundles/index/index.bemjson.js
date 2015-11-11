@@ -22,6 +22,7 @@ module.exports = {
     content : [
         {
             block : 'stock-wrap',
+            js: true,
             content : [
                 {
                     block : 'stock-header',
@@ -114,6 +115,10 @@ module.exports = {
                                 'zoom': 10,
                                 'styles': true
                             }
+                        },
+                        {
+                            block: 'stock-info',
+                            js: true
                         }
                     ]
                 }
