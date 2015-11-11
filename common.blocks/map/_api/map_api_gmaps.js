@@ -138,7 +138,9 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
                             dealer_city: dealer['dealer_region_name_' + _this._lang],
                             dealer_adress: dealer['dealer_adress_' + _this._lang],
                             dealer_email: dealer.dealer_email,
-                            dealer_phone: dealer.dealer_phone
+                            dealer_phone: dealer.dealer_phone,
+                            dealer_id: dealer.id,
+                            city_id: dealer.dealer_region
                         });
 
                         //элементы из json, которые попадают в InfoWindow
@@ -146,13 +148,18 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
                                                 'dealer_region_name_' + _this._lang,
                                                 'dealer_adress_' + _this._lang,
                                                 'dealer_email',
-                                                'dealer_phone'
+                                                'dealer_phone',
+                                                'dealer_site_url'
                                                 ];
                         var contentInfoWindow = $.map( fieldsInfoWindow, function( field, i ) {
                             if(dealer[field] === false || typeof dealer[field] == "undefined" ){
                                return null;
                             }else{
-                               return { type: field.replace(/dealer_|_ru|_en/g,""), text: dealer[field] };
+                                var mods="";
+                                if (field == 'dealer_phone') mods = "tel";
+                                if (field == 'dealer_email') mods = "email";
+                                if (field == 'dealer_site_url') mods = "web";
+                                return { "type": field.replace(/dealer_|_ru|_en/g,""), "text": dealer[field], "mods": mods };
                             }
                         });
 

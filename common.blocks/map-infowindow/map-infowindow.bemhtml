@@ -16,7 +16,8 @@ block('map-infowindow')(
                             {
                                 elem: item.type,
                                 mix: { elem: 'item' },
-                                content: txt
+                                content: (item.mods === "") ? txt : { block: 'link', mods: {'type': item.mods}, content: txt }
+                                //content: item.mods
                             }
                         );
                     });
@@ -25,7 +26,7 @@ block('map-infowindow')(
                         {
                             elem: item.type,
                             mix: { elem: 'item' },
-                            content: item.text
+                            content: (item.mods === "") ? item.text : { block: 'link', mods: {'type': item.mods}, content: item.text }
                         }
                     );
                 }

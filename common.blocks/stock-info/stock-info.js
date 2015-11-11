@@ -21,9 +21,9 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
                             block: 'stock-table',
                             title: "РЕЗУЛЬТАТЫ ПОИСКА",
                             th: [
-                                    {'width':"20%", 'text': 'КОД ТОВАРА'},
-                                    {'width':"60%", 'text': 'НАИМЕНОВАНИЕ'},
-                                    {'width':"20%", 'text': 'ДАТА ОБНОВЛЕНИЯ'}
+                                    {width:"20%", text: 'КОД ТОВАРА'},
+                                    {width:"60%", text: 'НАИМЕНОВАНИЕ'},
+                                    {width:"20%", text: 'ДАТА ОБНОВЛЕНИЯ'}
                                 ],
                             rows: data.stockinfo
                      })
@@ -49,13 +49,20 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
                     BEMHTML.apply({
                             block: 'stock-table',
                             th: [
-                                    {'width':"30%", 'text': 'ДИЛЕР'},
-                                    {'width':"15%", 'text': 'ГОРОД'},
-                                    {'width':"25%", 'text': 'АДРЕС'},
-                                    {'width':"15%", 'text': 'ТЕЛЕФОН'},
-                                    {'width':"15%", 'text': 'EMAIL'}
+                                    {width:"30%", text: 'ДИЛЕР'},
+                                    {width:"15%", text: 'ГОРОД'},
+                                    {width:"25%", text: 'АДРЕС'},
+                                    {width:"15%", text: 'ТЕЛЕФОН'},
+                                    {width:"15%", text: 'EMAIL'}
                                 ],
-                            rows: contentTableDelalers
+                            rows: contentTableDelalers,
+                            mods:{
+                                "name": {js: },
+                                "city": {js: },
+                                "adress": {js: },
+                                "phone": {mods: 'tel'},
+                                "email": {mods: 'email'}
+                            }
                      })
                 );
 

@@ -1,0 +1,6 @@
+block('link').mod('type', 'email')(
+    tag()("a"),
+    attrs()(function() {
+        return { href: 'mailto:' + this.ctx.content };
+    })
+);

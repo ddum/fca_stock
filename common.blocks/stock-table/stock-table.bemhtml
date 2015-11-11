@@ -38,10 +38,10 @@ block('stock-table')(
                 contentTable.push(table_row);
 
             });
-            var elemTitle = (typeof this.ctx.title !== 'undefined')? { elem : 'title', content : this.ctx.title } : '';
-            
+            var tableTitle = (typeof this.ctx.title !== 'undefined')? { elem : 'title', content : this.ctx.title } : '';
+
             return [
-                elemTitle ,
+                tableTitle ,
                 {
                     elem: 'table',
                     tag: 'table',

@@ -1,0 +1,6 @@
+block('link').mod('type', 'web')(
+    tag()("a"),
+    attrs()(function() {
+        return { href: 'http://' + this.ctx.content, target: '_blank' };
+    })
+);
