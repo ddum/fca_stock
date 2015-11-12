@@ -35,11 +35,21 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
                     var marker = _this._mapBlock.getMarkers(val);
                     if( marker !== false){
                         contentTableDelalers.push({
-                            "name": marker.title,
-                            "city": marker.dealer_city,
-                            "adress": marker.dealer_adress,
-                            "phone": Array.isArray(marker.dealer_phone) ? marker.dealer_phone.join("<br/>") : marker.dealer_phone,
-                            "email": Array.isArray(marker.dealer_email) ? marker.dealer_email.join("<br/>") : marker.dealer_email
+                            "name":   {elem: 'dealer-link', tag: 'span', js: {'dealer-id': marker.dealer_id}, content: marker.title},
+                            "city":   {elem: 'city-link', tag: 'span', js: {'city-id': marker.city_id}, content: marker.dealer_city},
+                            "adress": {elem: 'dealer-link', tag: 'span', js: {'dealer-id': marker.dealer_id}, content: marker.dealer_adress},
+                            "phone":  (marker.dealer_phone) ?
+                                         $.map(marker.dealer_phone, function(val){
+                                            if (val !== "") {
+                                                return { block: 'link', mods: {'type': 'tel'}, content: val };
+                                            }
+                                         }) : "",
+                            "email": (marker.dealer_email) ? 
+                                        $.map(marker.dealer_email, function(val){
+                                            if (val !== "") {
+                                                return { block: 'link', mods: {'type': 'email'}, content: val };
+                                            }
+                                        }) : ""
                         });
                     }
                 });
@@ -55,14 +65,7 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
                                     {width:"15%", text: 'ТЕЛЕФОН'},
                                     {width:"15%", text: 'EMAIL'}
                                 ],
-                            rows: contentTableDelalers,
-                            mods:{
-                                "name": {js: },
-                                "city": {js: },
-                                "adress": {js: },
-                                "phone": {mods: 'tel'},
-                                "email": {mods: 'email'}
-                            }
+                            rows: contentTableDelalers
                      })
                 );
 

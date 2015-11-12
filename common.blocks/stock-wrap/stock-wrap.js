@@ -13,8 +13,9 @@ modules.define('stock-wrap', ['i-bem__dom', 'jquery'], function(provide, BEMDOM,
                 }
             },
             pageScroll: function (elem) {
+                var scrollElem = elem || this._mapBlock.domElem;
                 $('html, body').animate({
-                    scrollTop: $(elem).offset().top
+                    scrollTop: $(scrollElem).offset().top - 20
                 }, 500);
             }
         }

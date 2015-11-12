@@ -1,4 +1,5 @@
 block('stock-table')(
+    js()(true),
     content()(
         function () {
             var contentTable = [];
@@ -30,7 +31,6 @@ block('stock-table')(
                 for (var key in row){
                     table_row.content.push({
                         elem: 'td',
-                        mix: {elem: key},
                         tag: 'td',
                         content: row[key]
                     });

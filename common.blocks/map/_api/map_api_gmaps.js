@@ -3,7 +3,7 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
         onSetMod: {
             'js': {
                 inited: function () {
-                    this._markers = [];
+                    this._markers = {};
                     this._lang = this.params.lang;
                     this.loadMapsApi();
 
@@ -15,7 +15,25 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
                 }
             }
         },
+        mapFitBounds: function (data) {
+            this.closeActivInfoWin();
+            var bounds = new google.maps.LatLngBounds();
+            $.each(this._markers, function(i, val) {
+                if( val.visible &&
+                    (typeof data['dealer-id'] !== "undefined" && val.dealer_id == data['dealer-id']) ||
+                    (typeof data['city-id']   !== "undefined" && val.city_id   == data['city-id'])
+                ){
+                    bounds.extend(val.getPosition());
+                }
+            });
 
+            this._map.fitBounds(bounds);
+            if( this._map.getZoom() > 18){
+                this._map.setZoom(17);
+            }else if(this._map.getZoom() < 9){
+                this._map.setZoom(10);
+            }
+        },
         onButtonSearchClick: function (e, data) {
             this.setMod('loaded');
             this.loadGeoObj(data);
@@ -96,6 +114,7 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
 
             var mapOptions = {
                 zoom: this.params.zoom || 10,
+                minZoom: 3,
                 center: this._center,
                 mapTypeControl: true,
                 mapTypeControlOptions: {
@@ -140,7 +159,8 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
                             dealer_email: dealer.dealer_email,
                             dealer_phone: dealer.dealer_phone,
                             dealer_id: dealer.id,
-                            city_id: dealer.dealer_region
+                            city_id: dealer.dealer_region,
+                            visible: true
                         });
 
                         //элементы из json, которые попадают в InfoWindow
@@ -183,9 +203,11 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
                     var tmpMarker = _this._markers[dealer.id];
                     if($.inArray( dealer.id , pointDealers ) == -1){
                         //Убрать с карты ранее созданный маркер
+                        _this._markers[dealer.id].visible = false;
                         tmpMarker.setMap(null);
                     }else{
                         //Поставить на карту ранее созданный маркер
+                        _this._markers[dealer.id].visible = true;
                         tmpMarker.setMap(_this._map);
                     }
                 }
