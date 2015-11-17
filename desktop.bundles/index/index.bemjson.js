@@ -2,6 +2,8 @@ module.exports = {
     block : 'page',
     title : 'stock',
     head : [
+        { elem : 'meta', attrs : { name : 'description', content : '' } },
+        { elem : 'meta', attrs : { name : 'viewport', content : 'width=device-width, initial-scale=1' } },
         {
             content : { elem : 'css', url : 'index.min.css' }
         },
