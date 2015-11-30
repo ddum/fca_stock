@@ -13,7 +13,8 @@ modules.define('stock-select', ['BEMHTML', 'i-bem__dom', 'jquery'], function(pro
         },
         getCityObject: function () {
             $.ajax({
-                url: '../../files/city.json',
+                //url: '../../files/city.json',
+                url: '/script/getJsonDealer.php',
                 data: {},
                 dataType: 'json',
                 success: this.setValSelect,
@@ -35,7 +36,7 @@ modules.define('stock-select', ['BEMHTML', 'i-bem__dom', 'jquery'], function(pro
                         block : 'menu-item',
                         js: {val : value.id},
                         mods : {theme : 'stock'},
-                        content : value.name
+                        content : value.name_ru
                     })
                );
            });
