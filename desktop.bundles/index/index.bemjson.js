@@ -1,6 +1,6 @@
 module.exports = {
     block : 'page',
-    title : 'stock',
+    title : 'Цены и наличие запасных частей',
     head : [
         { elem : 'meta', attrs : { name : 'description', content : '' } },
         { elem : 'meta', attrs : { name : 'viewport', content : 'width=device-width, initial-scale=1' } },

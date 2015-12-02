@@ -22,8 +22,8 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
                             title: "РЕЗУЛЬТАТЫ ПОИСКА",
                             th: [
                                     {width:"20%", text: 'КОД ТОВАРА'},
-                                    {width:"60%", text: 'НАИМЕНОВАНИЕ'},
-                                    {width:"20%", text: 'ДАТА ОБНОВЛЕНИЯ'}
+                                    {width:"20%", text: 'КОД ЗАПРОШЕН'},
+                                    {width:"60%", text: 'НАИМЕНОВАНИЕ'}
                                 ],
                             rows: data.stockinfo
                      })
@@ -32,24 +32,27 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
                 var contentTableDelalers = [];
                 var _this = this;
                 $.each(data.dealers, function(i, val) {
-                    var marker = _this._mapBlock.getMarkers(val);
+                    var marker = _this._mapBlock.getMarkers(val.id);
                     if( marker !== false){
                         contentTableDelalers.push({
                             "name":   {elem: 'dealer-link', tag: 'span', js: {'dealer-id': marker.dealer_id}, content: marker.title},
                             "city":   {elem: 'city-link', tag: 'span', js: {'city-id': marker.city_id}, content: marker.dealer_city},
                             "adress": {elem: 'dealer-link', tag: 'span', js: {'dealer-id': marker.dealer_id}, content: marker.dealer_adress},
-                            "phone":  (marker.dealer_phone) ?
+                            "price":  {elem: 'price', tag: 'span', content: val.price},
+
+                            /*"phone":  (marker.dealer_phone) ?
                                          $.map(marker.dealer_phone, function(val){
                                             if (val !== "") {
                                                 return { block: 'link', mods: {'type': 'tel'}, content: val };
                                             }
                                          }) : "",
-                            "email": (marker.dealer_email) ? 
+                            "email": (marker.dealer_email) ?
                                         $.map(marker.dealer_email, function(val){
                                             if (val !== "") {
                                                 return { block: 'link', mods: {'type': 'email'}, content: val };
                                             }
                                         }) : ""
+                            */
                         });
                     }
                 });
@@ -61,9 +64,10 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
                             th: [
                                     {width:"30%", text: 'ДИЛЕР'},
                                     {width:"15%", text: 'ГОРОД'},
-                                    {width:"25%", text: 'АДРЕС'},
-                                    {width:"15%", text: 'ТЕЛЕФОН'},
-                                    {width:"15%", text: 'EMAIL'}
+                                    {width:"40%", text: 'АДРЕС'},
+                                    {width:"15%", text: 'ЦЕНА, РУБ.'},
+                                    /*{width:"15%", text: 'ТЕЛЕФОН'},
+                                    {width:"15%", text: 'EMAIL'}*/
                                 ],
                             rows: contentTableDelalers
                      })

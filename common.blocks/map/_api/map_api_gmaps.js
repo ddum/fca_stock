@@ -144,7 +144,9 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
 
         showMarkerMap:function (pointDealers) {
             var _this = this;
-
+            pointDealers = pointDealers.map(function(item){
+                return item.id;
+            });
             $.each(this.dealersList, function(i, dealer) {
 
                 if(typeof _this._markers[dealer.id] == "undefined"){
