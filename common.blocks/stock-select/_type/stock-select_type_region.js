@@ -13,8 +13,7 @@ modules.define('stock-select', ['BEMHTML', 'i-bem__dom', 'jquery'], function(pro
         },
         getCityObject: function () {
             $.ajax({
-                //url: '../../files/city.json',
-                url: '/script/getJsonDealer.php',
+                url: '../../files/city.json',
                 data: {},
                 dataType: 'json',
                 success: this.setValSelect,

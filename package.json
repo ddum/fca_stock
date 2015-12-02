@@ -23,7 +23,14 @@
     "enb-diverse-js": "^0.1.0",
     "enb-modules": "^0.2.0",
     "enb-stylus": "^2.0.0",
-    "ym": "^0.1.2"
+    "ym": "^0.1.2",
+    "gulp": "*",
+    "gulp-uglify": "*",
+    "gulp-batch-replace": "*",
+    "gulp-minify-css": "*",
+    "gulp-header": "*",
+    "gulp-if": "*",
+    "gulp-ftp": "*"
   },
   "scripts": {
     "start": "enb server",
