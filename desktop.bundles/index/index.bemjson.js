@@ -123,6 +123,27 @@ module.exports = {
                             js: true
                         }
                     ]
+                },
+                {
+                    block: 'stock-footer',
+                    content : {
+                        elem: 'content',
+                        content:[
+                            {
+                                elem: 'left',
+                                content: '© 2015 FCA US LLC. Все права защищены.'
+                            },
+                            {
+                                elem: 'right',
+                                content: [
+                                    'Разработка и поддержка сайта — ',
+                                    {
+                                        block: 'supportix'
+                                    }
+                                ]
+                            }
+                        ]
+                    }
                 }
             ]
         }

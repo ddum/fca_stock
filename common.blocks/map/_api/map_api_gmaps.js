@@ -21,7 +21,8 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
             $.each(this._markers, function(i, val) {
                 if( val.visible &&
                     (typeof data['dealer-id'] !== "undefined" && val.dealer_id == data['dealer-id']) ||
-                    (typeof data['city-id']   !== "undefined" && val.city_id   == data['city-id'])
+                    (typeof data['city-id']   !== "undefined" && val.city_id   == data['city-id']) ||
+                    data === "all"
                 ){
                     bounds.extend(val.getPosition());
                 }
@@ -30,9 +31,10 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
             this._map.fitBounds(bounds);
             if( this._map.getZoom() > 18){
                 this._map.setZoom(17);
-            }else if(this._map.getZoom() < 9){
-                this._map.setZoom(10);
             }
+            /*else if(this._map.getZoom() < 9){
+                this._map.setZoom(10);
+            }*/
         },
         onButtonSearchClick: function (e, data) {
             this.setMod('loaded');
@@ -52,7 +54,12 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
                 data: $.param(data.filter),
                 dataType: 'json',
                 success: function (data) {
-                    this.showMarkerMap(data.dealers);
+                    if(typeof data.error === "undefined"){
+                        this.showMarkerMap(data.dealers);
+                        this.mapFitBounds("all");
+                    }else{
+                        this.showMarkerMap([]);
+                    }
                     //карта отрисована
                     this.delMod('loaded').emit('map-show', data );
                 },
@@ -195,9 +202,7 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
                         });
 
                         google.maps.event.addListener(marker, 'click', function() {
-                            _this.closeActivInfoWin();
-                            marker.info.open( _this._map, marker);
-                            _this.activMarker = marker;
+                            _this.openInfoWin(marker);
                         });
                         _this._markers[dealer.id] = marker;
                     }
@@ -217,6 +222,11 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
         },
         closeActivInfoWin: function() {
             if(this.activMarker) this.activMarker.info.close();
+        },
+        openInfoWin: function(marker) {
+            this.closeActivInfoWin();
+            marker.info.open( this._map, marker);
+            this.activMarker = marker;
         },
         getMarkers: function (id) {
             return this._markers[id] || false;

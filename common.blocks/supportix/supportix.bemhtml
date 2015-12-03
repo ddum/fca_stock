@@ -1,0 +1,17 @@
+block('supportix')(
+    tag()("a"),
+    content()(function () {
+        return [
+            'SUPPORT',
+            {
+                tag: 'span',
+                elem: 'red',
+                content: 'ix'
+            }
+
+        ];
+    }),
+    attrs()(function() {
+        return  { href: 'http://supportix.ru/', target: '_blank' }
+    })
+);

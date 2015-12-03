@@ -17,6 +17,10 @@ modules.define('stock-table', ['i-bem__dom', 'jquery'], function(provide, BEMDOM
             var params = JSON.parse(e.target.getAttribute('data-bem'));
             this.wrap.pageScroll();
             this._mapBlock.mapFitBounds(params[className]);
+            var dealerId = params[className]["dealer-id"];
+            if(typeof dealerId !== "undefined"){
+                this._mapBlock.openInfoWin(this._mapBlock._markers[dealerId]);
+            }
         }
     }));
 });
