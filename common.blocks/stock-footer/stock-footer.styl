@@ -9,16 +9,36 @@
         margin: 0 auto;
         display: table;
         height: 100%;
-        font-size: 14px;
+        font-size: 13px;
     }
 
     &__left, &__right{
         display: table-cell;
         vertical-align: middle;
         padding: 0 10px;
+        box-sizing: border-box;
     }
 
     &__right{
         text-align: right;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .stock-footer{
+        &__content{
+            font-size: 12px;
+        }
+        &__left, &__right{
+             display: inline-block;
+             text-align: center;
+             width: 100%;
+        }
+        &__left{
+            padding-top: 20px;
+        }
+        &__right{
+            padding-top: 5px;
+        }
     }
 }
