@@ -1,0 +1,138 @@
+.select{
+    &__button{
+        position: relative;
+        border: none;
+        outline: none;
+        background: color_bg;
+        width: 100%;
+        height: 40px;
+        color: color_font;
+        font-size: 16px;
+        padding: 11px 22px;
+        box-sizing: border-box;
+        margin-top: 10px;
+        text-align: left;
+    }
+    &__button .button__text{
+        text-transform: uppercase;
+    }
+    &__tick{
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid #a2a2a2;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+    }
+}
+
+.popup_theme_stock
+{
+    display: none;
+    visibility: hidden;
+
+    margin: -9999px 0 0 -9999px;
+
+    animation-duration: 0.1s;
+    animation-timing-function: ease-out;
+
+    background: #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1),
+                0 10px 20px -5px rgba(0, 0, 0, 0.4);
+
+    animation-fill-mode: forwards;
+
+    &.popup_js_inited
+    {
+        display: block;
+    }
+
+    &.popup_visible
+    {
+        visibility: visible;
+
+        margin: 0;
+    }
+
+    for rule in ((bottom (left center right)) (top (left center right)) (right (top center bottom)) (left (top center bottom))) {
+        for secondary in rule[1] {
+            &.popup_direction_{rule[0]}-{secondary} {
+                animation-name: popup_theme_stock_ + rule[0];
+            }
+        }
+        for secondary in rule[1] {
+            &.popup_direction_{rule[0]}-{secondary}.popup_visible {
+                animation-name: popup_theme_stock_ + rule[0] + _visible;
+            }
+        }
+    }
+}
+
+for rule in ((bottom Y 10) (top Y -10) (right X 10) (left X -10)) {
+    @keyframes popup_theme_stock_{rule[0]}
+    {
+        0%
+        {
+            visibility: visible;
+
+            margin: 0;
+
+            transform: translate + rule[1] + '(0)';
+
+            opacity: 1;
+        }
+
+        99%
+        {
+            margin: 0;
+
+            transform: translate + rule[1] + unquote('(' + rule[2] + 'px)');
+        }
+
+        100%
+        {
+            visibility: hidden;
+
+            margin: -9999px 0 0 -9999px;
+
+            opacity: 0;
+        }
+    }
+
+    @keyframes popup_theme_stock_{rule[0]}_visible {
+        0%
+        {
+            opacity: 0;
+
+            transform: translate + rule[1] + unquote('(' + rule[2] + 'px)');
+        }
+
+        100%
+        {
+            opacity: 1;
+
+            transform: translate + rule[1] + '(0)';
+        }
+    }
+}
+
+.menu-item{
+    &_theme_stock {
+        height: 40px;
+        padding: 11px 22px;
+        box-sizing: border-box;
+        color: #231F20;
+        list-style: none;
+        text-align: left;
+        text-transform: uppercase;
+    }
+
+    &_hovered {
+        background: #577add;
+        color: #FFF;
+    }
+
+}

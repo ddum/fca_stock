@@ -1,0 +1,22 @@
+block('stock-select').mod('plugin', 'selectbox')(
+    js()(true),
+    tag()('select'),
+    content()(function(){
+        var options = this.ctx.options;
+        var selectedOption = this.ctx.val;
+        var returnOption = [];
+        options.forEach(function(option){
+            returnOption.push({
+                tag: 'option',
+                attrs: {
+                        value: option.val,
+                        selected: (selectedOption == option.val) ? 'selected' : undefined
+                    },
+                content: option.text
+            });
+        });
+        console.log(returnOption);
+
+        return returnOption;
+    })
+);

@@ -76,13 +76,12 @@ module.exports = {
                             ]
                         },
                         {
-                            block : 'select',
-                            mix: [ { block: 'stock-select', js: true, mods : {type: 'region'} }],
-                            mods : { mode : 'radio', theme : 'stock'},
+                            block: 'stock-select',
+                            mods : {plugin: 'selectbox', type: 'region'},
                             name : 'region',
                             val : 'none',
                             options : [
-                                { val : 'none', text : 'Выберите город' },
+                                { val : 'none', text : 'Выберите город' }
                             ]
                         },
                         {
