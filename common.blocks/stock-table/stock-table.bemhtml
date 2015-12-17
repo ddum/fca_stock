@@ -32,7 +32,7 @@ block('stock-table')(
                     table_row.content.push({
                         elem: 'td',
                         tag: 'td',
-                        content: row[key]
+                        content: (Array.isArray(row[key]))? row[key].join(',<br/>'):row[key]
                     });
                 }
                 contentTable.push(table_row);

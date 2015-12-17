@@ -2,6 +2,7 @@
     {
         shouldDeps : [
             { block : 'stock-table'},
+            { block : 'stock-disclaimer'},
             { block: 'link', mods: {type:['tel', 'email', 'web']} }
         ]
     },

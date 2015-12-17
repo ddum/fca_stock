@@ -16,17 +16,32 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
             },
             schowInfoStock: function (e, data) {
                 if(typeof data.error === "undefined"){
+                    var arrCode = data.stockinfo[0].code_arr;
+                    var indexCode = arrCode.indexOf(data.stockinfo[0].code_search);
+                    var price = data.stockinfo[0].price_fca.replace(",", ".");
+                    var prevCode = arrCode.slice(0, indexCode);
+                    var nextCode = arrCode.slice(indexCode + 1);
+                    var stockInfo = [{
+                            "code": data.stockinfo[0].code,
+                            "code_prev": (prevCode.length === 0)? "-": prevCode,
+                            "code_next": (nextCode.length === 0)? "-": nextCode,
+                            "description": data.stockinfo[0].description,
+                            "price_fca": (price === "")? "-": (parseFloat(price)*1.18).toFixed(2)
+                    }];
+
                     BEMDOM.update(
                         this.domElem,
                         BEMHTML.apply({
                                 block: 'stock-table',
                                 title: "РЕЗУЛЬТАТЫ ПОИСКА",
                                 th: [
-                                        {width:"20%", text: 'КОД ТОВАРА'},
-                                        {width:"20%", text: 'КОД ЗАПРОШЕН'},
-                                        {width:"60%", text: 'НАИМЕНОВАНИЕ'}
+                                        {width:"13%", text: 'КОД ТОВАРА'},
+                                        {width:"16%", text: 'ПРЕДЫДУЩИЙ КОД'},
+                                        {width:"16%", text: 'ПОСЛЕДУЩИЙ КОД'},
+                                        {width:"39%", text: 'НАИМЕНОВАНИЕ'},
+                                        {width:"16%", text: 'РОЗНИЧНАЯ ЦЕНА*'}
                                     ],
-                                rows: data.stockinfo
+                                rows: stockInfo
                          })
                     );
 
@@ -39,7 +54,7 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
                                 "name":   {elem: 'dealer-link', tag: 'span', js: {'dealer-id': marker.dealer_id}, content: marker.title},
                                 "city":   {elem: 'city-link', tag: 'span', js: {'city-id': marker.city_id}, content: marker.dealer_city},
                                 "adress": {elem: 'dealer-link', tag: 'span', js: {'dealer-id': marker.dealer_id}, content: marker.dealer_adress},
-                                "price":  {elem: 'price', tag: 'span', content: val.price},
+                                "price":  {elem: 'price', tag: 'span', content: val.price.replace(",", ".")},
                                 /*"phone":  (marker.dealer_phone) ?
                                              $.map(marker.dealer_phone, function(val){
                                                 if (val !== "") {
@@ -70,6 +85,14 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
                                         {width:"15%", text: 'EMAIL'}*/
                                     ],
                                 rows: contentTableDelalers
+                         })
+                    );
+                    BEMDOM.append(
+                        this.domElem,
+                        BEMHTML.apply({
+                                block: 'stock-disclaimer',
+                                tag: 'p',
+                                content: '<sup>*</sup>Указанная Розничная цена - максимально допустимая цена ( с учетом НДС).'
                          })
                     );
                 }else {
