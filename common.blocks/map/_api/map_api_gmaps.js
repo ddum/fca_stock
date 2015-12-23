@@ -54,7 +54,7 @@ modules.define('map', ['BEMHTML', 'i-bem__dom', 'loader_type_js', 'jquery'], fun
                 data: $.param(data.filter),
                 dataType: 'json',
                 success: function (data) {
-                    if(typeof data.error === "undefined"){
+                    if(typeof data.error === "undefined" && data.dealers.length !== 0 && typeof data.dealers !== "undefined"){
                         this.showMarkerMap(data.dealers);
                         this.mapFitBounds("all");
                     }else{
