@@ -11,10 +11,11 @@ block('menu-logo')(
                         {
                             elem: 'item', // элемент меню
                             tag: 'li',
+                            attrs: (item.style)? { style: item.style}: false,
                             content: {
                                 block: 'link',
                                 mods : { brand : item.brand },
-                                url: item.url,
+                                url: (item.url)? item.url: 'javascript:void(0);',
                                 content: '',
                                 target : '_blank'
                             }

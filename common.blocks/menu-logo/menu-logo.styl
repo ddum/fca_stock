@@ -7,8 +7,8 @@
     &__item {
         display: table-cell;
         width: 100px;
-        height: 52px;
-        padding: 0 25px;
+        height: 60px;
+        padding: 0;
 
         & .link{
             display: block;
@@ -21,23 +21,18 @@
         }
 
         & .link_brand_fiat{
-            background: url('img/logo_sprite.png') center 159px;
+            background: url('img/logo_sprite.png') center -60px;
         }
 
         & .link_brand_jeep{
-            background: url('img/logo_sprite.png') center 106px;
+            background: url('img/logo_sprite.png') center -120px;
         }
 
         & .link_brand_fiatprofessional{
-            background: url('img/logo_sprite.png') center 53px;
+            background: url('img/logo_sprite.png') center -180px;
         }
-    }
-}
-
-@media screen and (max-width: 550px) {
-    .menu-logo{
-        &__item {
-            padding: 0;
+        & .link_brand_mopar{
+            background: url('img/logo_sprite.png') center -240px;
         }
     }
 }

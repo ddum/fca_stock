@@ -45,21 +45,25 @@ module.exports = {
                                     mix: [ { block: 'stock-header', elem: 'menu-logo' } ],
                                     items:[
                                         {
+                                            url: 'http://www.fiat.ru/',
+                                            brand: 'fiat'
+                                        },
+                                        {
                                             url: 'http://www.alfaromeo.ru/',
                                             brand: 'alfaromeo'
                                         },
                                         {
-                                            url: 'http://www.fiat.ru/',
-                                            brand: 'fiat'
+                                            url: 'http://www.fiatprofessional.ru/',
+                                            brand: 'fiatprofessional'
                                         },
                                         {
                                             url: 'http://www.jeep-russia.ru/',
                                             brand: 'jeep'
                                         },
                                         {
-                                            url: 'http://www.fiatprofessional.ru/',
-                                            brand: 'fiatprofessional'
-                                        }
+                                            brand: 'mopar',
+                                            style: 'width: 155px; padding-left: 10px;'
+                                        },
                                     ]
                                 }
                             ]
