@@ -17,8 +17,8 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
             schowInfoStock: function (e, data) {
                 if(typeof data.error === "undefined"){
                     var arrDisclaimer = [
-                                            '<sup>1</sup>Указанная Розничная цена - максимально допустимая цена ( с учетом НДС).',
-                                            '<sup>2</sup>Наличие на центральном складе АО «ЭфСиЭй РУС' +  ((!data.stockinfo[0].date_update)?'':'на ' + data.stockinfo[0].date_update)
+                                            '<sup>1</sup>Максимальная цена перепродажи, включая НДС.',
+                                            '<sup>2</sup>Наличие на центральном складе АО «ЭфСиЭй РУС» на ' + data.stockinfo[0].date_update + '. Доступное количество уточняйте у ближайшего дилера.'
                                         ];
 
                     var arrCode = data.stockinfo[0].code_arr;
@@ -29,17 +29,13 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
 
                     var availabilityDealers = (typeof data.dealers != "undefined" && data.dealers.length !== 0)? true: false;
 
-                    if(data.stockinfo[0].date_update !== false){
-                        arrDisclaimer.push('<sup>3</sup>Доступное количество уточняйте у ближайшего дилера.');
-                    }
-
                     var stockInfo = [{
                             "code": data.stockinfo[0].code_search,
                             "code_prev": (prevCode.length === 0)? "-": prevCode,
                             "code_next": (nextCode.length === 0)? "-": nextCode,
                             "description": data.stockinfo[0].description,
                             "price_fca": (price === "")? "-": (parseFloat(price)*1.18).toFixed(2),
-                            "date_update": (!data.stockinfo[0].date_update)?'нет в наличии':'есть в наличии<sup>3</sup>'
+                            "date_update": (!data.stockinfo[0].date_update)?'нет в наличии':'есть в наличии'
                     }];
 
 
@@ -49,12 +45,12 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
                                 block: 'stock-table',
                                 title: "РЕЗУЛЬТАТЫ ПОИСКА",
                                 th: [
-                                        {width:"10%", text: 'КОД ТОВАРА'},
-                                        {width:"15%", text: 'ПРЕДЫДУЩИЙ КОД'},
-                                        {width:"15%", text: 'ПОСЛЕДУЩИЙ КОД'},
-                                        {width:"30%", text: 'НАИМЕНОВАНИЕ'},
-                                        {width:"15%", text: 'РОЗНИЧНАЯ ЦЕНА<sup>1</sup>'},
-                                        {width:"15%", text: 'СКЛАД<br/>АО «ЭФСИЭЙ РУС»<sup>2</sup>'},
+                                        {width:"10%", text: 'Код товара'},
+                                        {width:"15%", text: 'Предыдущий код'},
+                                        {width:"15%", text: 'Последущий код'},
+                                        {width:"30%", text: 'Наименование'},
+                                        {width:"10%", text: 'Цена<sup>1</sup>'},
+                                        {width:"20%", text: 'Склад<br/>АО «ЭфСиЭй РУС»<sup>2</sup>'},
 
                                     ],
                                 rows: stockInfo
@@ -67,25 +63,28 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
                         $.each(data.dealers, function(i, val) {
                             var marker = _this._mapBlock.getMarkers(val.id);
                             if( marker !== false){
-                                contentTableDelalers.push({
-                                    "name":   {elem: 'dealer-link', tag: 'span', js: {'dealer-id': marker.dealer_id}, content: marker.title},
-                                    "code":   arrCode,
-                                    "city":   {elem: 'city-link', tag: 'span', js: {'city-id': marker.city_id}, content: marker.dealer_city},
-                                    "adress": {elem: 'dealer-link', tag: 'span', js: {'dealer-id': marker.dealer_id}, content: marker.dealer_adress},
-                                    "price":  {elem: 'price', tag: 'span', content: val.price.replace(",", ".")},
-                                    /*"phone":  (marker.dealer_phone) ?
-                                                 $.map(marker.dealer_phone, function(val){
-                                                    if (val !== "") {
-                                                        return { block: 'link', mods: {'type': 'tel'}, content: val };
-                                                    }
-                                                 }) : "",
-                                    "email": (marker.dealer_email) ?
-                                                $.map(marker.dealer_email, function(val){
-                                                    if (val !== "") {
-                                                        return { block: 'link', mods: {'type': 'email'}, content: val };
-                                                    }
-                                                }) : ""
-                                    */
+                                $.each(arrCode, function(i, tmpCode) {
+                                    var row = {
+                                        "code":   tmpCode,
+                                        "city":   {elem: 'city-link', tag: 'span', js: {'city-id': marker.city_id}, content: marker.dealer_city},
+                                        "name":   {elem: 'dealer-link', tag: 'span', js: {'dealer-id': marker.dealer_id}, content: marker.title},
+                                        "adress": {elem: 'dealer-link', tag: 'span', js: {'dealer-id': marker.dealer_id}, content: marker.dealer_adress},
+                                        "phone":  (marker.dealer_phone) ?
+                                                  $.map(marker.dealer_phone, function(val){
+                                                      if (val !== "") {
+                                                          return { block: 'link', mods: {'type': 'tel'}, content: val };
+                                                      }
+                                                  }) : "",
+                                      /*"price":  {elem: 'price', tag: 'span', content: val.price.replace(",", ".")},
+                                        "email": (marker.dealer_email) ?
+                                                    $.map(marker.dealer_email, function(val){
+                                                        if (val !== "") {
+                                                            return { block: 'link', mods: {'type': 'email'}, content: val };
+                                                        }
+                                                    }) : ""
+                                                    */
+                                    };
+                                    contentTableDelalers.push(row);
                                 });
                             }
                         });
@@ -95,13 +94,13 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
                             BEMHTML.apply({
                                     block: 'stock-table',
                                     th: [
-                                            {width:"15%", text: 'ДИЛЕР'},
-                                            {width:"15%", text: 'КОД ТОВАРА'},
-                                            {width:"15%", text: 'ГОРОД'},
-                                            {width:"40%", text: 'АДРЕС'},
-                                            {width:"15%", text: 'ЦЕНА, РУБ.'},
-                                            /*{width:"15%", text: 'ТЕЛЕФОН'},
-                                            {width:"15%", text: 'EMAIL'}*/
+                                            {width:"10%",  text: 'Код товара'},
+                                            {width:"15%", text: 'Город'},
+                                            {width:"15%", text: 'Дилер'},
+                                            {width:"45%", text: 'Адрес'},
+                                            {width:"18%", text: 'Телефон'},
+                                            /*{width:"15%", text: 'Email'}
+                                            {width:"15%", text: 'ЦЕНА, РУБ.'},*/
                                         ],
                                     rows: contentTableDelalers
                              })

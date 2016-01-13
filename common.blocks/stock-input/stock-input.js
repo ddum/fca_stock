@@ -7,8 +7,12 @@ modules.define('stock-input', ['i-bem__dom'], function(provide, BEMDOM) {
                     this._input = this.findBlockOn('input');
                     this._setVal(this.params.val);
 
+                    this.wrap = this.findBlockOutside('stock-content');
+                    this._buttonSearch = this.wrap.findBlockInside({ block : 'stock-button', modName : 'type', modVal : 'search' });
+
                     this.bindTo('focusin',  this._onInFocus);
                     this.bindTo('focusout', this._onOutFocus);
+                    this.bindTo('keydown', this._onKeyDown);
                 }
             }
         },
@@ -31,6 +35,12 @@ modules.define('stock-input', ['i-bem__dom'], function(provide, BEMDOM) {
         _onOutFocus: function() {
             if(this._input.getVal() === ''){
                 this._setVal(this.params.val);
+            }
+        },
+        _onKeyDown: function(e) {
+            console.log(e.keyCode);
+            if(e.keyCode == 13){
+                this._buttonSearch._onClick(e);
             }
         }
     }
