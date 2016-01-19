@@ -111,6 +111,10 @@ module.exports = {
                             text : 'ПОИСК'
                         },
                         {
+                            block: 'stock-info',
+                            js: true
+                        },
+                        {
                             block: 'map',
                             mods: { 'api': 'gmaps' },
                             // Параметры для загрузки АПИ Google Maps
@@ -122,8 +126,7 @@ module.exports = {
                             }
                         },
                         {
-                            block: 'stock-info',
-                            js: true
+                            block: 'stock-disclaimer-wrap'
                         }
                     ]
                 },

@@ -1,6 +1,6 @@
 block('stock-disclaimer')(
     content()(function () {
-        var arrDisclaimer = this.ctx.content;
+        var arrDisclaimer = this.ctx.content || [];
 
         return  arrDisclaimer.map(function(disclaimer) {
                     return {elem: 'item', tag: 'p', content: disclaimer }

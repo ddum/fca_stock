@@ -11,15 +11,12 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
                         this._mapBlock.on('map-show', this.schowInfoStock, this);
 
                         this._buttonSearch = this.wrap.findBlockInside({ block : 'stock-button', modName : 'type', modVal : 'search' });
+                        this._disclaimerWrap = this.wrap.findBlockInside({ block : 'stock-disclaimer-wrap'});
                     }
                 }
             },
             schowInfoStock: function (e, data) {
                 if(typeof data.error === "undefined"){
-                    var arrDisclaimer = [
-                                            '<sup>1</sup>Максимальная цена перепродажи, включая НДС.',
-                                            '<sup>2</sup>Наличие на центральном складе АО «ЭфСиЭй РУС» на ' + data.stockinfo[0].date_update + '. Доступное количество уточняйте у ближайшего дилера.'
-                                        ];
 
                     var arrCode = data.stockinfo[0].code_arr;
                     var indexCode = arrCode.indexOf(data.stockinfo[0].code_search);
@@ -34,7 +31,7 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
                             "code_prev": (prevCode.length === 0)? "-": prevCode,
                             "code_next": (nextCode.length === 0)? "-": nextCode,
                             "description": data.stockinfo[0].description,
-                            "price_fca": (price === "")? "-": (parseFloat(price)*1.18).toFixed(2),
+                            "price_fca": (price === "")? "-": price,//(parseFloat(price)*1.18).toFixed(2),
                             "date_update": (!data.stockinfo[0].date_update)?'нет в наличии':'есть в наличии'
                     }];
 
@@ -106,11 +103,14 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
                              })
                         );
                     }
-
-                    BEMDOM.append(
-                        this.domElem,
+                    var arrDisclaimer = [
+                                            '<sup>1</sup>Максимальная цена перепродажи, включая НДС.',
+                                            '<sup>2</sup>Наличие на центральном складе АО «ЭфСиЭй РУС» на ' + data.stockinfo[0].date_update + '. Доступное количество уточняйте у ближайшего дилера.'
+                                        ];
+                    BEMDOM.update(
+                        this._disclaimerWrap.domElem,
                         BEMHTML.apply({
-                                block: 'stock-disclaimer',
+                                block : 'stock-disclaimer',
                                 content: arrDisclaimer
                          })
                     );

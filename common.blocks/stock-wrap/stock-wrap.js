@@ -5,9 +5,10 @@ modules.define('stock-wrap', ['i-bem__dom', 'jquery'], function(provide, BEMDOM,
                     'inited': function() {
                         this._buttonSearch = this.findBlockInside({ block : 'stock-button', modName : 'type', modVal : 'search' });
                         this._mapBlock = this.findBlockInside({ block: 'map', modName: 'api', modVal: 'gmaps' });
+                        this._stockInfo = this.findBlockInside({ block: 'stock-info'});
 
                         this._buttonSearch.on({ modName : 'loaded', modVal : '' }, function() {
-                            this.pageScroll(this._mapBlock.domElem);
+                            this.pageScroll(this._stockInfo.domElem);
                         }, this);
                     }
                 }
