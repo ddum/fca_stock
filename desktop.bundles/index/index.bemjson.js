@@ -1,6 +1,3 @@
-var date = new Date();
-var date = ('0' + date.getDate()).slice(-2) + '.' + ('0' + (date.getMonth() + 1)).slice(-2) + '.' + date.getFullYear();
-
 module.exports = {
   block : 'page',
   title : 'Цены и наличие запасных частей',
@@ -101,6 +98,14 @@ module.exports = {
               ]
             },
             {
+              block : 'input',
+              mix: [ {
+                block: 'stock-input',
+                js: {val : 'КОД ТОВАРА'},
+                mods : {type: 'codeSP'}
+              }],
+            },
+            {
               block: 'stock-select',
               mods : {plugin: 'selectbox', type: 'region'},
               name : 'region',
@@ -118,14 +123,6 @@ module.exports = {
                }],
             },
             {
-              block : 'input',
-              mix: [ {
-                block: 'stock-input',
-                js: {val : 'КОД ТОВАРА'},
-                mods : {type: 'codeSP'}
-              }],
-            },
-            {
               block : 'button',
               mix: [ { block: 'stock-button', js: true, mods : {type: 'search'} }, { block: 'stock-content', elem: 'button' } ],
               mods : { type : 'link' },
@@ -141,8 +138,8 @@ module.exports = {
               // Параметры для загрузки АПИ Google Maps
               js: {
                 'lang': 'ru',
-                'center': [55.76, 37.64],
-                'zoom': 10,
+                'center': [65, 95],
+                'zoom': 3,
                 'styles': true
               }
             },
@@ -151,7 +148,7 @@ module.exports = {
               content: [
                     '*Уточняйте у дилера правильность подбора артикула. В случае предлагаемой замены номера, уточняйте его применимость к конкретному идентификационному номеру автомобиля (VIN).',
                     '<sup>1</sup>Максимальная цена перепродажи, включая НДС.',
-                    '<sup>2</sup>Наличие на центральном складе АО «ЭфСиЭй РУС» на ' + date +'. Доступное количество уточняйте у ближайшего дилера.'
+                    '<sup>2</sup>Наличие на центральном складе АО «ЭфСиЭй РУС». Доступное количество уточняйте у ближайшего дилера.'
                   ]
             }
           ]

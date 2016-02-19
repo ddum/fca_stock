@@ -11,7 +11,7 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
                         this._mapBlock.on('map-show', this.schowInfoStock, this);
 
                         this._buttonSearch = this.wrap.findBlockInside({ block : 'stock-button', modName : 'type', modVal : 'search' });
-                        //this._disclaimerWrap = this.wrap.findBlockInside({ block : 'stock-disclaimer-wrap'});
+                        this._disclaimer = this.wrap.findBlockInside({ block : 'stock-disclaimer'});
                     }
                 }
             },
@@ -42,11 +42,11 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
                                 block: 'stock-table',
                                 title: "РЕЗУЛЬТАТЫ ПОИСКА",
                                 th: [
-                                        {width:"10%", text: 'Код товара'},
+                                        {width:"10%", text: 'Текущий код товара'},
                                         {width:"15%", text: 'Предыдущий код*'},
                                         {width:"15%", text: 'Последущий код*'},
-                                        {width:"30%", text: 'Наименование'},
-                                        {width:"10%", text: 'Цена, руб.<sup>1</sup>'},
+                                        {width:"25%", text: 'Наименование'},
+                                        {width:"15%", text: 'Цена, руб.<br/>(на текущий код товара)<sup>1</sup>'},
                                         {width:"20%", text: 'Склад<br/>АО «ЭфСиЭй РУС»<sup>2</sup>'},
 
                                     ],
@@ -100,6 +100,20 @@ modules.define('stock-info', ['BEMHTML', 'i-bem__dom', 'jquery'], function(provi
                                             {width:"15%", text: 'ЦЕНА, РУБ.'},*/
                                         ],
                                     rows: contentTableDelalers
+                             })
+                        );
+
+                        var arrDisclaimer = [
+                                            '*Уточняйте у дилера правильность подбора артикула. В случае предлагаемой замены номера, уточняйте его применимость к конкретному идентификационному номеру автомобиля (VIN).',
+                                            '<sup>1</sup>Максимальная цена перепродажи, включая НДС.',
+                                            '<sup>2</sup>Наличие на центральном складе АО «ЭфСиЭй РУС» на ' + data.stockinfo[0].date_update + '. Доступное количество уточняйте у ближайшего дилера.'
+                                        ];
+                                        
+                        BEMDOM.update(
+                            this._disclaimer.domElem,
+                            BEMHTML.apply({
+                                    block : 'stock-disclaimer',
+                                    content: arrDisclaimer
                              })
                         );
                     }

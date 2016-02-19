@@ -38,7 +38,6 @@ modules.define('stock-input', ['i-bem__dom'], function(provide, BEMDOM) {
             }
         },
         _onKeyDown: function(e) {
-            console.log(e.keyCode);
             if(e.keyCode == 13){
                 this._buttonSearch._onClick(e);
             }
